@@ -78,33 +78,131 @@ body{
 .navShearch {
     margin-top: 20px;
     display: flex;
+    color: white;
 
 }
 
 .navShearchIngredients {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     border-radius: 5px;
     background-color: #3282F7;
-    width: 10%;
     height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
     
 }
 
 .navShearchdevice {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     border-radius: 5px;
     background-color: #68D9A4;
-    width: 10%;
     height: 50px;
     margin: 0px 20px 0px 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 
 }
 
 .navShearchUstensils {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     border-radius: 5px;
     background-color: #ED6454;
-    width: 10%;
     height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
 
+}
+
+.navSherchText {
+    margin-right: 20px;
+}
+
+.card {
+    margin-top: 30px;
+    height: 300px;
+    width: 30%;
+   
 
 }
 
 
+.cardPicture {
+    background-color:#C7BEBE;
+    height: 150px;
+    
+}
+
+.cardAllText{
+    background-color: #E7E7E7;
+    padding: 10px;
+
+}
+
+.cardRecipe {
+    display: flex;
+    
+   
+}
+
+.cardInfo {
+    padding: 0px 0px 10px 0px;
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.cardRecipeName {
+
+}
+
+.cardRecipeTime {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.timeIcon {
+
+}
+
+.timeRecipe {
+
+
+}
+
+.cardRecipe{
+
+}
+
+.cardIngredients{
+    width: 50%;
+}
+
+.ingredients {
+
+}
+
+.ingredientsName {
+
+}
+
+.quantite {
+
+}
+
+.recipe {
+    display: flex;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.libelle {
+    margin-top: 0px;
+}
