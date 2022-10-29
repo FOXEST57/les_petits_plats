@@ -122,13 +122,17 @@ body{
 .navSherchText {
     margin-right: 20px;
 }
+.galerie{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;    
+}
 
 .card {
     margin-top: 30px;
-    height: 300px;
-    width: 30%;
-   
-
+    margin-bottom: 30px;
+    width: 30%; 
+    
 }
 
 
@@ -144,11 +148,7 @@ body{
 
 }
 
-.cardRecipe {
-    display: flex;
-    
-   
-}
+
 
 .cardInfo {
     padding: 0px 0px 10px 0px;
@@ -159,6 +159,7 @@ body{
 }
 
 .cardRecipeName {
+    font-size: 14px;
 
 }
 
@@ -177,15 +178,21 @@ body{
 
 }
 
-.cardRecipe{
-
+.carteRecette{
+    display: flex;
 }
+.cardRecipe{
+    width: 50%;
+}
+
 
 .cardIngredients{
     width: 50%;
 }
 
 .ingredients {
+    width: 100%;
+
 
 }
 
@@ -204,5 +211,15 @@ body{
 }
 
 .libelle {
+
     margin-top: 0px;
+    overflow: hidden;
+  
+}
+
+
+.combobox{
+    padding: 8px;
+    border-radius: 8px;
+    border: 5px solid blue;
 }
