@@ -82,41 +82,39 @@ body{
 
 }
 
-.navShearchIngredients {
+.navShearchWrapper{
+
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    border-radius: 5px;
-    background-color: #3282F7;
+    justify-content: space-between;
+    color: white;
     height: 50px;
     padding-left: 10px;
     padding-right: 10px;
+    border-radius: 5px;
+    max-width: 250px;    
     
+}
+.hidden{
+    display: none;
+}
+
+.navShearchIngredients {
+   
+    background-color: #3282F7;
+  
 }
 
 .navShearchdevice {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 5px;
+    
     background-color: #68D9A4;
-    height: 50px;
-    margin: 0px 20px 0px 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-
+    
 }
 
 .navShearchUstensils {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 5px;
+    
     background-color: #ED6454;
-    height: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
-
+    
 }
 
 .navSherchText {
@@ -131,8 +129,8 @@ body{
 .card {
     margin-top: 30px;
     margin-bottom: 30px;
-    width: 30%; 
-    
+    min-width: 300px;
+    max-width: 650px;   
 }
 
 
@@ -192,15 +190,18 @@ body{
 
 .ingredients {
     width: 100%;
+    flex-wrap: nowrap;
 
 
 }
 
 .ingredientsName {
+    width: auto;
 
 }
 
 .quantite {
+    width: auto;
 
 }
 
@@ -208,12 +209,14 @@ body{
     display: flex;
     align-items: flex-start;
     width: 50%;
+    height: 300px;
+   
 }
 
 .libelle {
 
     margin-top: 0px;
-    overflow: hidden;
+    
   
 }
 
