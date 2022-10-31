@@ -83,7 +83,8 @@ body{
 }
 
 .navShearchWrapper{
-
+    margin-top: 20px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -92,29 +93,39 @@ body{
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;
-    max-width: 250px;    
+    max-width: 250px; 
+    border: none;   
     
 }
 .hidden{
     display: none;
+    
 }
 
 .navShearchIngredients {
    
     background-color: #3282F7;
+    color: white;
   
 }
 
-.navShearchdevice {
+.navShearchAppareils {
     
     background-color: #68D9A4;
+    color: white;
     
 }
 
-.navShearchUstensils {
+.navShearchUstensiles {
     
     background-color: #ED6454;
+    color: white;
     
+}
+
+.filters{
+    display: flex;
+
 }
 
 .navSherchText {
@@ -216,13 +227,9 @@ body{
 .libelle {
 
     margin-top: 0px;
+    text-align: justify;
     
   
 }
 
 
-.combobox{
-    padding: 8px;
-    border-radius: 8px;
-    border: 5px solid blue;
-}

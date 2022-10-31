@@ -1,15 +1,26 @@
 //recuperer les recette
 import {recipes}  from '../../data/recipes.js';
-console.log(recipes);
 
 // Appel la fonction qui fait la boucle pour afficher les recettes
 displayRecipes(recipes)
-const ingDropdown = createDropdown('Ingredients');
-ingDropdown.displayDropdown()
+
+const ingDropdown = dropdown('Ingredients');
+ingDropdown.displayDropdown();
+const ingredients = collectIngredient(recipes);
+ingDropdown.hydrate(ingredients);
 
 
 
+const devDropdown = dropdown('Appareils');
+devDropdown.displayDropdown(recipes)
+const appliance = collectAppliance(recipes)
+devDropdown.hydrate(appliance)
 
+
+const ustDropdown = dropdown('Ustensiles');
+ustDropdown.displayDropdown(recipes)
+const ustensils = collectUstensils(recipes)
+ustDropdown.hydrate(ustensils)
 
 // Boucle pour afficher les recettes
 function displayRecipes(recipes){
@@ -40,11 +51,8 @@ recipes.forEach((recipe) => {
 
 //recupère les ingredients est utilisé dans la fonction displayRecipes
 function renderIngredients(ingredients){
-
     let html = ''
-
-    ingredients.forEach(ingObj => 
-        {
+    ingredients.forEach(ingObj => {
             html +=`
             <div class="ingredients">
                 <span class="ingredientsName"> ${ingObj.ingredient} :</span>
@@ -52,14 +60,10 @@ function renderIngredients(ingredients){
             </div>
             `
         })
-
         return html
 };
 
-
-
-
-function createDropdown (title) {
+function dropdown (title) {
     function buildDropdown(title){   
         const div = document.createElement('div')
             div.innerHTML = `
@@ -67,9 +71,7 @@ function createDropdown (title) {
                 <div class="navSherchText">${title}</div> 
                 <i class="fa far-regular fa-chevron-down"></i> 
             </button>
-            <div class="result navShearch${title} hidden" data-ref="${title}">
-            abc
-            </div>
+            <div class="result navShearch${title} hidden" data-ref="${title}"></div>
     `; 
     return div;
 }
@@ -79,10 +81,8 @@ function createDropdown (title) {
         // crée le Dropdown vide
         const ingDropdown = buildDropdown(title)
         document.querySelector(".filters").append(ingDropdown)
-        document.querySelector(".toggle").addEventListener("click", function (e) {
-            const el = e.target;
-            const ref = e.target.dataset.ref;
-            const result = document.querySelector(`.result[data-ref="${ref}"`);
+        document.querySelector(`.toggle[data-ref="${title}"`).addEventListener("click", function (e) {
+            const result = document.querySelector(`.result[data-ref="${title}"`);
             if (result.classList.contains("hidden")) {
                 result.classList.remove("hidden");
             }else {
@@ -90,10 +90,43 @@ function createDropdown (title) {
             }
         });
     }
-       
-    return {
-        title: title,
-        displayDropdown,
+    
+    function hydrate(items){
+        items.forEach((item) => {
+             document.querySelector(`.result[data-ref="${title}"`).innerHTML += `<div class="item">${item}<div>` ;
+        });    
     }
+    return {
+        displayDropdown,
+        hydrate,
+    }
+};
 
-}
+
+function collectIngredient(recipes){
+    const list = new Set()
+    recipes.forEach((recipe) => {
+        recipe.ingredients.forEach((ingObj) => 
+        {
+            list.add(ingObj.ingredient);
+        });
+    });
+    return list;
+};
+
+function collectAppliance (recipes){
+    const list = new Set()
+    recipes.forEach((recipe) => {    
+        list.add(recipe.appliance);
+    });
+    return list;
+};
+
+
+function collectUstensils (recipes){
+    const list = new Set()
+    recipes.forEach((recipe) => {
+        list.add(recipe.ustensils);
+    });
+    return list;
+};
