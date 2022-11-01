@@ -140,8 +140,8 @@ body{
 .card {
     margin-top: 30px;
     margin-bottom: 30px;
-    min-width: 300px;
-    max-width: 650px;   
+    width: 30%; 
+   
 }
 
 
@@ -154,6 +154,8 @@ body{
 .cardAllText{
     background-color: #E7E7E7;
     padding: 10px;
+  
+    
 
 }
 
@@ -175,6 +177,7 @@ body{
 .cardRecipeTime {
     display: flex;
     justify-content: space-between;
+    padding-right: 10px;
 
 }
 
@@ -183,6 +186,7 @@ body{
 }
 
 .timeRecipe {
+    padding-left: 10px;
 
 
 }
@@ -190,18 +194,18 @@ body{
 .carteRecette{
     display: flex;
 }
-.cardRecipe{
-    width: 50%;
-}
+
 
 
 .cardIngredients{
     width: 50%;
+    
 }
 
 .ingredients {
     width: 100%;
-    flex-wrap: nowrap;
+    
+    font-size: 12px;
 
 
 }
@@ -217,19 +221,27 @@ body{
 }
 
 .recipe {
+    
     display: flex;
     align-items: flex-start;
     width: 50%;
-    height: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
+    
    
 }
 
 .libelle {
 
     margin-top: 0px;
-    text-align: justify;
+    height: 150px;
+   
     
-  
+    font-size: 12px;
+
+    
+
 }
 
 
