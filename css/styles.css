@@ -102,8 +102,12 @@ body{
 }
 
 .reglage{
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: 0px 20px;
 }
+
 
 .result {
     margin-right: 20px;
@@ -112,22 +116,48 @@ body{
     border-radius: 5px;
     
 }
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list .item{
+    border-radius: 5px;
+    padding : 5px 10px;
+    cursor: pointer;
+    width: 30%;
+}
+
+.list .item:hover {
+    background-color: #f7f7f7;
+    color: black;
+}
+
+.search-input::placeholder {
+   color: white;
+   opacity: 0.8;
+}
+
+.search-input:focus {
+    border: none;
+    outline: none;
+}
+
 .search-input{
 
     border: none;
     margin-top: 20px ;
     margin-bottom: 20px;
     color: white;
-    background-color: #3282F7;
+    background-color: transparent;
 }
 
 
 
 .navShearchIngredients {
-   
     background-color: #3282F7;
-    color: white;
-  
+    color: white; 
 }
 
 .navShearchAppareils {
@@ -146,16 +176,26 @@ body{
 
 .filters{
     display: flex;
-
+    position: absolute;
+    z-index: 4;
+   
 }
 
 .navSherchText {
     margin-right: 20px;
 }
+
+.filters-wrapper {
+    
+}
+
 .galerie{
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;   
+    position: absolute;
+    top: 350px;
+    
 }
 
 .card {
