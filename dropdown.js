@@ -9,8 +9,10 @@ function dropdown (title) {
                 <i class="fa far-regular fa-chevron-down"></i> 
             </button>
             <div class="result navShearch${title} hidden" data-ref="${title}">
-                <input type="text"class="search-input"/>
-                <i class="fa far-regular fa-chevron-up"></i>  
+            <div class="reglage">
+                <input type="text" value = "${title} " class="search-input"/>
+                <i class="fa far-regular fa-chevron-up"></i> 
+            <div/> 
                 <div class="list"> <div/> 
                 <div id="no-result" class="hidden">Désolé rien ne corresponds a votre recherche<div/>   
 
@@ -24,12 +26,14 @@ function dropdown (title) {
         // crée le Dropdown vide
         const ingDropdown = buildDropdown(title)
         document.querySelector(".filters").append(ingDropdown)
-        document.querySelector(`.toggle[data-ref="${title}"]`).addEventListener("click", function () {
+        document.querySelector(`.toggle[data-ref="${title}"]`).addEventListener("click", function (e) {
             const result = document.querySelector(`.result[data-ref="${title}"]`);
             if (result.classList.contains("hidden")) {
                 result.classList.remove("hidden");
+                document.querySelector(`.toggle[data-ref="${title}"]`).classList.add("hidden");
             }else {
                 result.classList.add("hidden");
+                // document.querySelector(`.toggle[data-ref="${title}"]`).classList.remove("hidden")
             }
         });
     }
