@@ -46,8 +46,8 @@ body{
 
 .taglist {
     margin-top: 20px;
-
 }
+
 .tagcard{
     padding: 5px 10px 5px 10px;
     border-radius: 5px;
@@ -79,7 +79,6 @@ body{
     margin-top: 20px;
     display: flex;
     color: white;
-
 }
 
 .navShearchWrapper{
@@ -94,9 +93,9 @@ body{
     padding-right: 10px;
     border-radius: 5px;
     max-width: 250px; 
-    border: none;   
-    
+    border: none;      
 }
+
 .hidden{
     display: none;    
 }
@@ -113,8 +112,7 @@ body{
     margin-right: 20px;
     margin-top: 20px;
     padding-left: 10px;
-    border-radius: 5px;
-    
+    border-radius: 5px;    
 }
 
 .list {
@@ -123,6 +121,8 @@ body{
 }
 
 .list .item{
+    text-decoration: none;
+    color: white;
     border-radius: 5px;
     padding : 5px 10px;
     cursor: pointer;
@@ -145,7 +145,6 @@ body{
 }
 
 .search-input{
-
     border: none;
     margin-top: 20px ;
     margin-bottom: 20px;
@@ -160,74 +159,56 @@ body{
     color: white; 
 }
 
-.navShearchAppareils {
-    
+.navShearchAppareils {    
     background-color: #68D9A4;
-    color: white;
-    
+    color: white;    
 }
 
-.navShearchUstensiles {
-    
+.navShearchUstensiles {    
     background-color: #ED6454;
-    color: white;
-    
+    color: white;    
 }
 
 .filters{
     display: flex;
     position: absolute;
-    z-index: 4;
-   
+    z-index: 2;   
 }
 
 .navSherchText {
     margin-right: 20px;
 }
 
-.filters-wrapper {
-    
-}
 
 .galerie{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;   
     position: absolute;
-    top: 350px;
-    
+    top: 350px;    
 }
 
 .card {
     margin-top: 30px;
     margin-bottom: 30px;
-    width: 30%; 
-   
+    width: 30%;   
 }
 
 
 .cardPicture {
     background-color:#C7BEBE;
-    height: 150px;
-    
+    height: 150px;    
 }
 
 .cardAllText{
     background-color: #E7E7E7;
     padding: 10px;
-  
-    
-
 }
-
-
 
 .cardInfo {
     padding: 0px 0px 10px 0px;
     display: flex;
     justify-content: space-between;
-
-
 }
 
 .cardRecipeName {
@@ -239,17 +220,10 @@ body{
     display: flex;
     justify-content: space-between;
     padding-right: 10px;
-
-}
-
-.timeIcon {
-
 }
 
 .timeRecipe {
-    padding-left: 10px;
-
-
+    padding-left: 10px
 }
 
 .carteRecette{
@@ -259,45 +233,27 @@ body{
 
 
 .cardIngredients{
-    width: 50%;
-    
+    width: 50%;    
 }
 
 .ingredients {
     width: 100%;
-    
     font-size: 12px;
-
-
 }
 
-.ingredientsName {
-    width: auto;
-
-}
-
-.quantite {
-    width: auto;
-
-}
-
-.recipe {
-    
+.recipe {    
     display: flex;
     align-items: flex-start;
-    width: 50%;
-   
+    width: 50%;  
 }
 
 .libelle {
-
     margin-top: 0px;
     height: 150px;
     font-size: 12px;
     line-clamp: 3;
     text-overflow: ellipsis;
-    overflow: hidden;
-    
+    overflow: hidden;   
 }
 
 

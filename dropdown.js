@@ -1,9 +1,8 @@
-export default dropdown;
-
 function dropdown (title) 
 {
     const wrapper = `.filter-wrapper[data-ref="${title}"]`;
-    function buildDropdown(title){   
+    function buildDropdown(title)
+    {   
         const div = document.createElement('div')
             div.innerHTML = `
             <div class="filter-wrapper" data-ref="${title}">
@@ -17,7 +16,7 @@ function dropdown (title)
                         <i class="fa far-regular fa-chevron-up close-button"></i> 
                     </div>
                     <div class="list"> </div>
-                    <div id="no-result" class="hidden">Désolé rien ne corresponds a votre recherche</div>   
+                    <div class="no-result hidden">Désolé rien ne corresponds a votre recherche</div>   
                 </div>
             </div>
        `; 
@@ -54,8 +53,18 @@ function dropdown (title)
     }
     function hydrate(items){
         items.forEach((item) => {
-             document.querySelector(`${wrapper} .result .list`).innerHTML += `<div class="item">${item}<div>` ;
+             document.querySelector(`${wrapper} .result .list`).innerHTML += `<a href="#" class="item select-button" data-filter="${title}">${item}</a>` ;
         });    
+    }
+
+    function hideNoResult() 
+    {
+        document.querySelector(`${wrapper} .no-result`).classList.add('hidden');
+    }
+
+    function showNoResult() 
+    {
+        document.querySelector(`${wrapper} .no-result`).classList.remove('hidden');
     }
 
     function listenForInput()
@@ -64,34 +73,37 @@ function dropdown (title)
         {
             const needle = e.target.value.toLowerCase();
           
-            let elements = document.querySelectorAll(`${wrapper} .result .list .item`);
+            let elements = document.querySelectorAll(`${wrapper} .list .item`);
+            hideNoResult();
             
             elements.forEach(el =>
-                {
-                    el.classList.remove('hidden')
-                })
+            {
+                el.classList.remove('hidden')
+            })
 
             elements = [...elements].filter(el =>
-                {
-                   const text = el.innerText.toLowerCase()
-                   return !(text.indexOf(needle) > -1)
-                })
+            {
+                const text = el.innerText.toLowerCase()
+                return !(text.indexOf(needle) > -1)
+            })
             elements.forEach(el =>
-                {
-                    el.classList.add('hidden')
-                })
+            {
+                el.classList.add('hidden')
+            })
 
-            const visibleItems = document.querySelectorAll(`${wrapper} .result.list .item:not(.hidden)`).length;
+            const visibleItems = document.querySelectorAll(`${wrapper} .list .item:not(.hidden)`).length;
             if (visibleItems == 0)
             {
-                document.querySelector('#no-result').classList.remove('hidden');
-                console.log(visibleItems)
+                showNoResult();
             }
         })
     }
+    
     return {
         displayDropdown,
         hydrate,
         listenForInput,
     }
 };
+
+export default dropdown;

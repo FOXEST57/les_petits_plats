@@ -14,40 +14,44 @@
     <title>Les petits plats</title>
 
 </head>
-<body>
+    <body>
     
-    <header class="header" >       
-        <div class="logo">
-            <img class="imglogo" src="picture/logo.png" alt="logo les petits plats" width="40%"/>
-        </div> 
-    </header>
-    <section class="shearchSection">
-        <div class="shearchRecipe">
-            <input type="text"
-            id = "recipe"
-            name = "recette"
-            value = " Rechercher une recette">
-            <span class="shearchicon">
-                <i class=" fa far-regular fa-magnifying-glass"></i>
-            </span>
+        <header class="header" >       
+            <div class="logo">
+                <img class="imglogo" src="picture/logo.png" alt="logo les petits plats" width="40%"/>
+            </div> 
+        </header>
+
+        <section class="shearchSection">
+            <div class="shearchRecipe">
+                <input 
+                    type="text"
+                    id = "recipe"
+                    name = "recette"
+                    value = " Rechercher une recette">
+                <span class="shearchicon">
+                    <i class=" fa far-regular fa-magnifying-glass"></i>
+                </span>
+            </div>
+        </section>
+        
+        <div class="taglist">
+            <div class="tagcard">
+                <p class="tagname">Coco</p>
+                <span class="tagclose">
+                    <i class="far fa-thin fa-circle-xmark"></i>
+                </span>
+            </div>
         </div>
-    </section>
-    <div class="taglist">
-        <div class="tagcard">
-            <p class="tagname">Coco</p>
-            <span class="tagclose">
-                <i class="far fa-thin fa-circle-xmark"></i>
-            </span>
-        </div>
-    </div>
-    <nav class="filters"></nav>
+        
+        <nav class="filters"></nav>
+        
+        <main class="galerie"></main>
     
-    <main class="galerie"></main>
-  
 
-<script src="index.js" type="module"></script> 
- 
+        <script src="index.js" type="module"></script> 
+    
 
-</body>
+    </body>
 </html>
 
