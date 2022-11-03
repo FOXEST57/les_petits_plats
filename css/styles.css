@@ -104,16 +104,19 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 20px;
+    padding: 0px;
 }
+
 
 
 .result {
     margin-right: 20px;
     margin-top: 20px;
-    padding-left: 10px;
+    padding-left: 20px;
     border-radius: 5px;    
 }
+
+
 
 .list {
     display: flex;
@@ -124,7 +127,7 @@ body{
     text-decoration: none;
     color: white;
     border-radius: 5px;
-    padding : 5px 10px;
+    padding : 5px 0px;
     cursor: pointer;
     width: 30%;
 }
@@ -152,7 +155,9 @@ body{
     background-color: transparent;
 }
 
-
+.close-button{
+    margin-right: 15px;
+}
 
 .navShearchIngredients {
     background-color: #3282F7;
