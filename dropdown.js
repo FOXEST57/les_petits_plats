@@ -12,7 +12,7 @@ function dropdown (title)
                 </button>
                 <div class="result navShearch${title} hidden">
                     <div class="reglage close">
-                        <input type="text" placeholder = "${title} " class="search-input"> </input>
+                        <input type="text" placeholder = "Rechercher des ${title} " class="search-input"> </input>
                         <i class="fa far-regular fa-chevron-up close-button"></i> 
                     </div>
                     <div class="list"> </div>
@@ -49,6 +49,13 @@ function dropdown (title)
             const result = document.querySelector(` ${wrapper} .result`);
             result.classList.add("hidden");
             document.querySelector(`${wrapper} .toggle`).classList.remove("hidden");    
+        });
+    }
+
+    function close()
+    {
+        document.querySelector(`${wrapper} .close-button `).addEventListener("click", function () {
+           close()    
         });
     }
     function hydrate(items){
@@ -103,6 +110,8 @@ function dropdown (title)
         displayDropdown,
         hydrate,
         listenForInput,
+        close,
+        wrapper
     }
 };
 

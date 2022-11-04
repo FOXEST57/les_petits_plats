@@ -6,39 +6,58 @@ import { shorten} from './tool.js';
 // Appel la fonction qui fait la boucle pour afficher les recettes
 displayRecipes(recipes)
 const filters = [
-    { title: 'Ingredients', collect: collectIngredients},
-    { title: 'Appareils', collect: collectAppliances},
-    { title: 'Ustensiles', collect: collectUstensils},
+    { title: 'Ingredients', collect: collectIngredients, selection: []},
+    { title: 'Appareils', collect: collectAppliances, selection: []},
+    { title: 'Ustensiles', collect: collectUstensils, selection: []},
 ]
 
 filters.forEach(filter =>
-    {
-        const drop = dropdown(filter.title);
-        drop.displayDropdown();
-        const items = filter.collect(recipes);
-        drop.hydrate(items);
-        drop.listenForInput();
-        
-    })
-    listenForSelection();
+{
+    const drop = dropdown(filter.title);
+    drop.displayDropdown();
+    const items = filter.collect(recipes);
+    drop.hydrate(items);
+    drop.listenForInput();
+    listenForSelection(drop, filter);
+})
 
-    function listenForSelection()
-    {
-        document.querySelectorAll('.item').forEach(button =>
+
+function listenForSelection(drop, filter)
+{   
+    document.querySelectorAll(`${drop.wrapper} .item`).forEach(button =>
+        {
+            button.addEventListener('click', (e) => 
             {
-                button.addEventListener('click', (e) => 
-                {
-                    e.preventDefault();
-                    const category = e.target.dataset.filter
-                    console.log(e.target, category)
-                    // afficher l'element selectionne dans la zone selection
-                    //filtre les recettes
-                    //cacher les autres recettes
-                    
+                e.preventDefault();
+                const category = e.target.dataset.filter
+                const needle = e.target.innerText
+                
+                
+                // afficher l'element selectionne dans la zone selection
+                showTagInSelection(needle, category)
+                
+                //ajouter a la selection du filtre le tag selectionné
+                filter.selection.push(needle)
 
-                })
+                // fermer le dropdown
+                drop.close()
+
+                //filtre les recettes
+                const filteredRecipes = filterUstensils(recipes, filter)
+
+                //cacher toutes les recettes
+                hideAllRecipes()
+
+                //afficher les bonnes recettes
+                filteredRecipes.forEach(recipe =>
+                    {
+                        document.querySelectorAll(`.card[data-id="${recipe.id}"]`).classList.remove('hidden')
+                    })
+                
+
             })
-    }
+        })
+}
 
 
 
@@ -46,7 +65,7 @@ filters.forEach(filter =>
 function displayRecipes(recipes){
     recipes.forEach((recipe) => {
         document.querySelector(".galerie").innerHTML +=`
-            <div class="card">
+            <div class="card" data-id="${recipe.id}">
                 <div class="cardPicture"></div>
                 <div class="cardAllText">
                     <div class="cardInfo">
@@ -104,12 +123,56 @@ function collectAppliances (recipes){
     return list;
 };
 
+function filterUstensils(recipes, filter)
+{
+    
+    return recipes.filter(recipe =>
+        {
+            let count = 0;
+            filter.selection.forEach()(tag =>
+            {
+                if(recipe.ustensils.includes(needle))
+                {
+                    count++;
+                }
+    
+            }) 
+            
+            if (count === filter.selection.lenght){
+                return true;
+            }
+            
+            
+            return false;
+        })
+};
 
 function collectUstensils (recipes){
     const list = new Set()
     recipes.forEach((recipe) => {
-        list.add(recipe.ustensils);
+        recipe.ustensils.forEach((ustensil) => {
+            list.add(ustensil);
+        });
     });
     return list;
 };
 
+function hideAllRecipes()
+{
+    document.querySelectorAll('.card').forEach(card =>
+        {
+            card.classList.add('hidden')
+        })
+};
+
+function showTagInSelection(needle, category)
+{
+    const cssColor = 'navShearch' + category;
+    document.querySelector('.taglist').innerHTML += `
+    <div class="tagcard ${cssColor}">
+        <p class="tagname">${needle}</p>
+        <span class="tagclose">
+            <i class="far fa-thin fa-circle-xmark"></i>
+        </span>
+    </div>`
+}
