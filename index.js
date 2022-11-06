@@ -6,26 +6,66 @@ import { shorten} from './tool.js';
 // Appel la fonction qui fait la boucle pour afficher les recettes
 displayRecipes(recipes)
 const filters = [
-    { title: 'Ingredients', collect: collectIngredients, selection: []},
-    { title: 'Appareils', collect: collectAppliances, selection: []},
-    { title: 'Ustensiles', collect: collectUstensils, selection: []},
+    { 
+        title: 'Ingredients', 
+        collect: collectIngredients, 
+        filter: filterIngredients, 
+        selection: [],
+        dropdown: null,
+    },
+    { 
+        title: 'Appareils', 
+        collect: collectAppliances, 
+        filter: filterAppliances,
+        selection: [],
+        dropdown: null,
+    },
+    { 
+        title: 'Ustensiles', 
+        collect: collectUstensils,
+        filter: filterUstensils, 
+        selection: [],
+        dropdown: null,
+    },
 ]
 
 filters.forEach(filter =>
 {
-    const drop = dropdown(filter.title);
-    drop.displayDropdown();
+    filter.dropdown = dropdown(filter.title);
+    filter.dropdown.displayDropdown();
     const items = filter.collect(recipes);
-    drop.hydrate(items);
-    drop.listenForInput();
-    listenForSelection(drop, filter);
+    filter.dropdown.hydrate(items);
+    filter.dropdown.listenForInput();
+    listenForSelection(filter);
 })
 
-
-function listenForSelection(drop, filter)
-{   
-    document.querySelectorAll(`${drop.wrapper} .item`).forEach(button =>
+function listenUnSelect(filter)
+{
+    document.querySelectorAll('.tagclose').forEach(tag =>
+    {
+        tag.addEventListener('click', (e) =>
         {
+            e.preventDefault(); 
+            const parent = e.target.closest('.tagcard')
+            const item = parent.dataset.id
+            console.log(parent, item)
+
+            //enlever le tag 
+            parent.remove();
+
+            //enlever l'element de la selection du filtre
+            const index = filter.selection.findIndex(a => a === item)
+            filter.selection.splice(index, 1)
+
+            filterRecipes()
+
+        })
+    })
+}
+
+function listenForSelection(filter)
+{   
+    document.querySelectorAll(`${filter.dropdown.wrapper} .item`).forEach(button =>{
             button.addEventListener('click', (e) => 
             {
                 e.preventDefault();
@@ -38,28 +78,16 @@ function listenForSelection(drop, filter)
                 
                 //ajouter a la selection du filtre le tag selectionné
                 filter.selection.push(needle)
+                listenUnSelect(filter)
 
                 // fermer le dropdown
-                drop.close()
+                filter.dropdown.close()
 
-                //filtre les recettes
-                const filteredRecipes = filterUstensils(recipes, filter)
-
-                //cacher toutes les recettes
-                hideAllRecipes()
-
-                //afficher les bonnes recettes
-                filteredRecipes.forEach(recipe =>
-                    {
-                        document.querySelectorAll(`.card[data-id="${recipe.id}"]`).classList.remove('hidden')
-                    })
-                
+                filterRecipes()
 
             })
         })
 }
-
-
 
 // Boucle pour afficher les recettes
 function displayRecipes(recipes){
@@ -101,9 +129,6 @@ function renderIngredients(ingredients){
     return html
 };
 
-
-
-
 function collectIngredients(recipes){
     const list = new Set()
     recipes.forEach((recipe) => {
@@ -123,29 +148,56 @@ function collectAppliances (recipes){
     return list;
 };
 
-function filterUstensils(recipes, filter)
-{
+function filterUstensils(recipes, selection){ 
     
+    return recipes.filter(recipe =>
+    {
+        let count = 0;
+        selection.forEach(needle =>
+        {
+            if(recipe.ustensils.includes(needle))
+            {
+                count++;
+            }
+        }) 
+        
+        if (count === selection.length){
+            return true;
+        }
+        
+        return false;
+    })
+};
+
+function filterIngredients(recipes, selection){
     return recipes.filter(recipe =>
         {
             let count = 0;
-            filter.selection.forEach()(tag =>
+            const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
+            selection.forEach(needle =>
             {
-                if(recipe.ustensils.includes(needle))
+                if(ingredients.includes(needle))
                 {
                     count++;
                 }
     
             }) 
             
-            if (count === filter.selection.lenght){
+            if (count === selection.length){
                 return true;
             }
             
             
             return false;
         })
-};
+}
+
+function filterAppliances(recipes, selection){
+    return recipes.filter(recipe =>
+        {
+        return recipe.appliance === selection[0]
+        })
+}
 
 function collectUstensils (recipes){
     const list = new Set()
@@ -169,10 +221,39 @@ function showTagInSelection(needle, category)
 {
     const cssColor = 'navShearch' + category;
     document.querySelector('.taglist').innerHTML += `
-    <div class="tagcard ${cssColor}">
+    <div class="tagcard ${cssColor}" data-id="${needle}">
         <p class="tagname">${needle}</p>
         <span class="tagclose">
             <i class="far fa-thin fa-circle-xmark"></i>
         </span>
     </div>`
+}
+
+function filterRecipes(){
+let filteredRecipes = recipes
+filters.forEach(filterItem => 
+    {
+        if(filterItem.selection.length > 0)
+        {
+            filteredRecipes = filterItem.filter(filteredRecipes, filterItem.selection)
+        }    
+    });
+
+
+//cacher toutes les recettes
+hideAllRecipes()
+
+//afficher les bonnes recettes
+filteredRecipes.forEach(recipe =>
+    {
+    document.querySelector(`.card[data-id="${recipe.id}"]`).classList.remove('hidden');
+    })
+
+filters.forEach(async(filterItem) =>
+    {
+        const tagFiltered = filterItem.collect(filteredRecipes);
+        await filterItem.dropdown.hideAll()
+        filterItem.dropdown.show(tagFiltered)
+
+    })
 }
