@@ -22,6 +22,7 @@ function dropdown (title)
        `; 
         return div;
     }
+
     //ferme le dropdown après selection 
     function close()
     {
@@ -29,6 +30,7 @@ function dropdown (title)
         result.classList.add("hidden");
         document.querySelector(`${wrapper} .toggle`).classList.remove("hidden");
     }
+
     //ouvre et ferme le dropdown
     function displayDropdown()
     {
@@ -39,29 +41,33 @@ function dropdown (title)
         listenForOpening()
         listenForClosing()
     }
+
     // cache tout les elements du dropdown après selection
     function hideAll()
     {
         document.querySelectorAll(`${wrapper} .result .list .item`).forEach(item =>
         {
-            item.classList.add('hiden')
+            item.classList.add('hidden')
         }) 
     }
+
     // cache le message il ni a pas de resultat quand la recherche abouti
     function hideNoResult() 
     {
         document.querySelector(`${wrapper} .no-result`).classList.add('hidden');
     }
+
     // alimente les données dans les dropdowns
     function hydrate(items)
     {
         items.forEach((item) => {
             document.querySelector(`${wrapper} .result .list`).innerHTML += `
-            <a href="#" class="item select-button" data-filter="${title}" data-id"${item}" >
+            <a href="#" class="item select-button" data-filter="${title}" data-id="${item}" >
                 ${item}
             </a>` ;
         });    
     }
+
     // ecoute pour fermer le dropdown
     function listenForClosing()
     {
@@ -69,6 +75,7 @@ function dropdown (title)
             close()    
         });
     }
+
     // ecoute les infos entrées dans l'input
     function listenForInput()
     {
@@ -101,6 +108,7 @@ function dropdown (title)
             }
         })
     }
+
     // ecoute pour ouvrir le dropdown
     function listenForOpening()
     {
@@ -110,17 +118,20 @@ function dropdown (title)
             document.querySelector(`${wrapper} .toggle`).classList.add("hidden");    
         });
     }
+
     // affiche le message erreur dans le dropdown quand la recherche est infructueuse
     function showNoResult() 
     {
         document.querySelector(`${wrapper} .no-result`).classList.remove('hidden');
     }
+
     //affiche les
     function show(items)
     {
         items.forEach(item =>
             {
-                document.querySelector(`${wrapper} .result .list .item [data-id ="${item}"]`).classList.remove('hidden');
+                const el = document.querySelector(`${wrapper} .result .list .item[data-id="${item}"]`);
+                el. classList.remove('hidden');
             })
     }
    

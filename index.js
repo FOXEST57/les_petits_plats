@@ -230,8 +230,9 @@ function showTagInSelection(needle, category)
 }
 
 function filterRecipes(){
-let filteredRecipes = recipes
-filters.forEach(filterItem => 
+    let filteredRecipes = recipes
+
+    filters.forEach(filterItem => 
     {
         if(filterItem.selection.length > 0)
         {
@@ -240,18 +241,19 @@ filters.forEach(filterItem =>
     });
 
 
-//cacher toutes les recettes
-hideAllRecipes()
+    //cacher toutes les recettes
+    hideAllRecipes()
 
-//afficher les bonnes recettes
-filteredRecipes.forEach(recipe =>
+    //afficher les bonnes recettes
+    filteredRecipes.forEach(recipe =>
     {
-    document.querySelector(`.card[data-id="${recipe.id}"]`).classList.remove('hidden');
+        document.querySelector(`.card[data-id="${recipe.id}"]`).classList.remove('hidden');
     })
 
-filters.forEach(async(filterItem) =>
-    {
+    filters.forEach(async(filterItem) =>
+    {   
         const tagFiltered = filterItem.collect(filteredRecipes);
+        console.log(tagFiltered)
         await filterItem.dropdown.hideAll()
         filterItem.dropdown.show(tagFiltered)
 
