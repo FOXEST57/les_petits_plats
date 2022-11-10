@@ -42,17 +42,6 @@ function dropdown (title)
         listenForClosing()
     }
 
-    // empeche de reselectionner un produit déjà selectionné
-    function freezeSelection(selection)
-    {
-        selection.forEach(item =>
-            {
-                const el = document.querySelector(`${wrapper} .result .list .item[data-id="${item}"]`);
-                el. classList.add('frozen');
-            })
-
-    }
-
     // cache tout les elements du dropdown après selection
     function hideAll()
     {
@@ -150,7 +139,6 @@ function dropdown (title)
     return {
         close,
         displayDropdown,
-        freezeSelection,
         hideAll,
         hydrate,
         listenForInput,

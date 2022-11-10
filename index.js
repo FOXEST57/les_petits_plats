@@ -39,28 +39,34 @@ filters.forEach(filter =>
     listenForSelection(filter);
 })
 
-function listenUnSelect(filter)
+// empeche de reselectionner un produit déjà selectionné
+function freezeSelection(filter)
 {
-    document.querySelectorAll('.tagclose').forEach(tag =>
+filter.selection.forEach(item =>
     {
-        tag.addEventListener('click', (e) =>
+        const el = document.querySelector(`${filter.dropdown.wrapper} .result .list .item[data-id="${item}"]`);
+        el. classList.add('frozen');
+    })
+
+}
+
+function listenUnSelect(filter, needle)
+{
+    const tag = document.querySelector(`.tagcard[data-id="${needle}"]`);
+    tag.querySelector(`.tagclose`).addEventListener('click', (e) =>
         {
             e.preventDefault(); 
-            const parent = e.target.closest('.tagcard')
-            const item = parent.dataset.id
-            console.log(parent, item)
 
-            //enlever le tag 
-            parent.remove();
+            tag.remove();
+            
 
             //enlever l'element de la selection du filtre
-            const index = filter.selection.findIndex(a => a === item)
+            const index = filter.selection.findIndex(a => a === needle)
             filter.selection.splice(index, 1)
 
             filterRecipes()
 
         })
-    })
 }
 
 function listenForSelection(filter)
@@ -83,7 +89,7 @@ function listenForSelection(filter)
                 
                 //ajouter a la selection du filtre le tag selectionné
                 filter.selection.push(needle)
-                listenUnSelect(filter)
+                listenUnSelect(filter, needle)
 
                 // fermer le dropdown
                 filter.dropdown.close()
@@ -225,13 +231,16 @@ function hideAllRecipes()
 function showTagInSelection(needle, category)
 {
     const cssColor = 'navShearch' + category;
-    document.querySelector('.taglist').innerHTML += `
-    <div class="tagcard ${cssColor}" data-id="${needle}">
+    const tag = document.createElement('div');
+    tag.classList.add('tagcard', cssColor)
+    tag.dataset.id = needle
+    tag.dataset.category = category
+    tag.innerHTML = `
         <p class="tagname">${needle}</p>
         <span class="tagclose">
             <i class="far fa-thin fa-circle-xmark"></i>
-        </span>
-    </div>`
+        </span>`
+    document.querySelector('.taglist').appendChild(tag)
 }
 
 function filterRecipes(){
@@ -258,9 +267,8 @@ function filterRecipes(){
     filters.forEach(async(filterItem) =>
     {   
         const tagFiltered = filterItem.collect(filteredRecipes);
-        console.log(tagFiltered)
         await filterItem.dropdown.hideAll()
-        filterItem.dropdown.freezeSelection(filterItem.selection)
+        freezeSelection(filterItem)
         filterItem.dropdown.show(tagFiltered)
 
     })
