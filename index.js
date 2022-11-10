@@ -69,9 +69,14 @@ function listenForSelection(filter)
             button.addEventListener('click', (e) => 
             {
                 e.preventDefault();
-                const category = e.target.dataset.filter
-                const needle = e.target.innerText
+                const isSelectable = !button.classList.contains('frozen')
+                const category = button.dataset.filter
+                const needle = button.innerText
                 
+                if(!isSelectable)
+                {
+                    return;
+                }
                 
                 // afficher l'element selectionne dans la zone selection
                 showTagInSelection(needle, category)
@@ -255,6 +260,7 @@ function filterRecipes(){
         const tagFiltered = filterItem.collect(filteredRecipes);
         console.log(tagFiltered)
         await filterItem.dropdown.hideAll()
+        filterItem.dropdown.freezeSelection(filterItem.selection)
         filterItem.dropdown.show(tagFiltered)
 
     })

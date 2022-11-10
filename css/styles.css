@@ -14,6 +14,12 @@ body{
     text-align: center;
 }
 
+.list .item.frozen {
+    cursor: not-allowed;
+    text-decoration: line-through;
+
+}
+
 .shearchSection {
     margin-top: 20px;
     display: flex;
