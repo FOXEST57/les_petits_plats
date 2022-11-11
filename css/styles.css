@@ -20,6 +20,10 @@ body{
 
 }
 
+#shearch-too-short{
+    margin-top: -10px;
+}
+
 .shearchSection {
     margin-top: 20px;
     display: flex;
@@ -104,7 +108,7 @@ body{
 }
 
 .hidden{
-    display: none;    
+    display: none!important ;
 }
 
 .reglage{

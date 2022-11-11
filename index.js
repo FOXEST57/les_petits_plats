@@ -1,7 +1,7 @@
 //recuperer les recette
 import {recipes}  from '../../data/recipes.js';
-import dropdown from './dropdown.js';
 import { shorten} from './tool.js';
+import dropdown from './dropdown.js';
 import appliance from './filters/appliances.js';
 import ingredient from './filters/ingredients.js';
 import ustensil from './filters/ustensils.js'; 
@@ -44,7 +44,7 @@ filters.forEach(filter =>
 });
 
 // ecoute les entrées de l'input 
-listenForSearch()
+listenForSearch();
 
 // Boucle pour afficher les recettes
 function displayRecipes(recipes){
@@ -121,6 +121,19 @@ function hideAllRecipes()
         })
 };
 
+function hideGallery() {
+    document.querySelector('.galerie').classList.add('hidden')
+};
+
+function hideNotice(){
+    const notice = document.querySelector('#shearch-too-short')
+    
+    if(!notice.classList.contains('hidden'))
+    {
+        document.querySelector('#shearch-too-short').classList.add('hidden');
+    }
+};
+
 function listenForSelection(filter)
 {   
     document.querySelectorAll(`${filter.dropdown.wrapper} .item`).forEach(button =>{
@@ -154,6 +167,21 @@ function listenForSelection(filter)
 
 function listenForSearch() {
 
+    document.querySelector('#recipe').addEventListener('input', (e) =>
+    {   
+        showGallery()
+        hideNotice()
+        
+        const needle = e.target.value;
+        if (needle.length > 0 && needle.length < 3)
+        {
+            document.querySelector('#shearch-too-short').classList.remove('hidden');
+            hideGallery();
+            showNotice();
+            return;
+        }
+        search(needle)
+    })
 };
 
 function listenUnSelect(filter, needle)
@@ -185,6 +213,45 @@ function renderIngredients(ingredients){
             `
     })
     return html
+};
+
+//algo fonctionnel
+function search(needle){
+    console.time(needle)
+    
+    needle = needle.toLowerCase();
+    
+    let filteredRecipes = recipes.filter(recipe =>
+    {
+        if(recipe.name.toLowerCase().indexOf(needle) > -1)
+        {
+            return true;
+        }
+
+        if(recipe.description.toLowerCase().indexOf(needle) > -1)
+        {
+            return true;
+        }
+
+        const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
+
+        return ingredients.some(ing =>
+        {
+            return ing.toLowerCase().indexOf(needle) > -1
+        })      
+    })
+
+    console.timeEnd(needle)
+
+    return filteredRecipes;
+};
+
+function showGallery(){
+    document.querySelector('.galerie').classList.remove('hidden');
+};
+
+function showNotice(){
+    document.querySelector('#shearch-too-short').classList.remove('hidden');
 };
 
 function showTagInSelection(needle, category)
