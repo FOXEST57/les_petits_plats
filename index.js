@@ -215,36 +215,46 @@ function renderIngredients(ingredients){
     return html
 };
 
-//algo fonctionnel (high Order Function)
+//algo natif
 function search(needle){
     console.time(needle)
 
     needle = needle.toLowerCase();
-    
-    let filteredRecipes = recipes.filter(recipe =>
+
+    const list = [];
+    for (let i = 0; i < recipes.length; i++)
     {
+        const recipe = recipes[i]
+        let isGood = false;
         if(recipe.name.toLowerCase().indexOf(needle) > -1)
         {
-            return true;
+            isGood = true;
         }
 
         if(recipe.description.toLowerCase().indexOf(needle) > -1)
         {
-            return true;
+            isGood = true;
         }
 
-        const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
-
-        return ingredients.some(ing =>
+        for (let j = 0; j < recipe.ingredients; j++)
         {
-            return ing.toLowerCase().indexOf(needle) > -1
-        })      
-    })
+            const ing = recipe.ingredients[j].ingredient;
+            if (ing.toLowerCase().indexOf(needle) > -1)
+            {
+                isGood = true;
+            }
+        }
+        if (isGood)
+        {
+            list.push(recipe)
+        }
+    } 
+    return list;  
+}  
+        
 
-    console.timeEnd(needle)
+       
 
-    return filteredRecipes;
-};
 
 function showGallery(){
     document.querySelector('.galerie').classList.remove('hidden');
