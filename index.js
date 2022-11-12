@@ -72,7 +72,7 @@ function displayRecipes(recipes){
     })
 };
 
-function filterRecipes(){
+function filterRecipes(recipes){
     let filteredRecipes = recipes
 
     filters.forEach(filterItem => 
@@ -159,7 +159,7 @@ function listenForSelection(filter)
                 // fermer le dropdown
                 filter.dropdown.close()
 
-                filterRecipes()
+                filterRecipes(recipes)
 
             })
         })
@@ -180,7 +180,8 @@ function listenForSearch() {
             showNotice();
             return;
         }
-        search(needle)
+        const filteredRecipes = search(needle)
+        filterRecipes(filteredRecipes)
     })
 };
 
@@ -196,7 +197,7 @@ function listenUnSelect(filter, needle)
         const index = filter.selection.findIndex(a => a === needle)
         filter.selection.splice(index, 1)
         unfreeze(filter, needle)
-        filterRecipes()
+        filterRecipes(recipes)
 
     })
 };
@@ -249,6 +250,8 @@ function search(needle){
             list.push(recipe)
         }
     } 
+    console.timeEnd(needle)
+    
     return list;  
 }  
         
