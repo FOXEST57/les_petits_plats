@@ -215,10 +215,10 @@ function renderIngredients(ingredients){
     return html
 };
 
-//algo fonctionnel
+//algo fonctionnel (high Order Function)
 function search(needle){
     console.time(needle)
-    
+
     needle = needle.toLowerCase();
     
     let filteredRecipes = recipes.filter(recipe =>
