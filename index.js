@@ -216,6 +216,36 @@ function renderIngredients(ingredients){
     return html
 };
 
+//algo fonctionnel (high Order Function)
+function search(needle){
+    console.time(needle)
+
+    needle = needle.toLowerCase();
+    
+    let filteredRecipes = recipes.filter(recipe =>
+    {
+        if(recipe.name.toLowerCase().indexOf(needle) > -1)
+        {
+            return true;
+        }
+
+        if(recipe.description.toLowerCase().indexOf(needle) > -1)
+        {
+            return true;
+        }
+
+        const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
+
+        return ingredients.some(ing =>
+        {
+            return ing.toLowerCase().indexOf(needle) > -1
+        })      
+    })
+
+    console.timeEnd(needle)
+
+    return filteredRecipes;
+};
 
 function showGallery(){
     document.querySelector('.galerie').classList.remove('hidden');
