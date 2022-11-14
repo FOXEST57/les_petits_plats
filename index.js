@@ -11,11 +11,11 @@ displayRecipes(recipes)
 
 const filters = [
     { 
-        title: 'Ingredients', 
-        collect: ingredient.collect, 
-        filter: ingredient.filter, 
-        selection: [],
-        dropdown: null,
+        title: 'Ingredients', //titre du filtre qui servira de reference
+        collect: ingredient.collect, // fonction qui permet de récupérer les ingrdients des recettes
+        filter: ingredient.filter, // fonction qui permet de filtrer les recette en fonction des ingedrients selectionnés
+        selection: [],// ingredient selectionné par l'utilisateur
+        dropdown: null,// objet dropdown avec toute les fonctionnalité lié au DOM
     },
     { 
         title: 'Appareils', 
@@ -34,13 +34,13 @@ const filters = [
 ]
 
 filters.forEach(filter =>
-{
-    filter.dropdown = dropdown(filter.title);
-    filter.dropdown.displayDropdown();
-    const items = filter.collect(recipes);
-    filter.dropdown.hydrate(items);
-    filter.dropdown.listenForInput();
-    listenForSelection(filter);
+{   
+    filter.dropdown = dropdown(filter.title);//crée un dropdown
+    filter.dropdown.displayDropdown();// affiche dropdown
+    const items = filter.collect(recipes); //récupère tous les éléments a afficher dans le DD
+    filter.dropdown.hydrate(items);// on affiche les elements dans  le dropdown 
+    filter.dropdown.listenForInput();// on ecoute l'input du DD
+    listenForSelection(filter);// on ecoute quand l'utilisateur selectionne un evenement
 });
 
 // ecoute les entrées de l'input 
@@ -72,9 +72,10 @@ function displayRecipes(recipes){
     })
 };
 
+// Filtrage et mis a jour de l'affichage des recettes 
 function filterRecipes(recipes){
     let filteredRecipes = recipes
-
+// Boucle qui filtre les recettes suivant les 3 filtres
     filters.forEach(filterItem => 
     {
         if(filterItem.selection.length > 0)
@@ -92,7 +93,7 @@ function filterRecipes(recipes){
     {
         document.querySelector(`.card[data-id="${recipe.id}"]`).classList.remove('hidden');
     })
-
+    //mise a jour des elements du dropdown
     filters.forEach(async(filterItem) =>
     {   
         const tagFiltered = filterItem.collect(filteredRecipes);
@@ -136,12 +137,14 @@ function hideNotice(){
 
 function listenForSelection(filter)
 {   
+    //on ecoute chaque element du dropdown
     document.querySelectorAll(`${filter.dropdown.wrapper} .item`).forEach(button =>{
             button.addEventListener('click', (e) => 
             {
                 e.preventDefault();
                 const isSelectable = !button.classList.contains('frozen')
                 const category = button.dataset.filter
+                //texte du bouton cliqué
                 const needle = button.innerText
                 
                 if(!isSelectable)
@@ -154,11 +157,12 @@ function listenForSelection(filter)
                 
                 //ajouter a la selection du filtre le tag selectionné
                 filter.selection.push(needle)
+                //on ecoute la déselection du filtre selectionnés
                 listenUnSelect(filter, needle)
 
                 // fermer le dropdown
                 filter.dropdown.close()
-
+                
                 filterRecipes(recipes)
 
             })
@@ -180,7 +184,9 @@ function listenForSearch() {
             showNotice();
             return;
         }
+        //on filtre les recette selon le champs de recherche principale (algo)
         const filteredRecipes = search(needle)
+        // on filtre a nouveau les recettes suivant les petits filtres
         filterRecipes(filteredRecipes)
     })
 };
@@ -233,7 +239,7 @@ function search(needle){
         {
             return true;
         }
-
+        //on transform un tableau d'objet en tableau de string
         const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
 
         return ingredients.some(ing =>
