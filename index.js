@@ -215,7 +215,44 @@ function renderIngredients(ingredients){
     })
     return html
 };
+//algo 2 natif
+function search(needle){
+    console.time(needle)
 
+    needle = needle.toLowerCase();
+
+    const list = [];
+    for (let i = 0; i < recipes.length; i++)
+    {
+        const recipe = recipes[i]
+        let isGood = false;
+        if(recipe.name.toLowerCase().indexOf(needle) > -1)
+        {
+            isGood = true;
+        }
+
+        if(recipe.description.toLowerCase().indexOf(needle) > -1)
+        {
+            isGood = true;
+        }
+
+        for (let j = 0; j < recipe.ingredients; j++)
+        {
+            const ing = recipe.ingredients[j].ingredient;
+            if (ing.toLowerCase().indexOf(needle) > -1)
+            {
+                isGood = true;
+            }
+        }
+        if (isGood)
+        {
+            list.push(recipe)
+        }
+    } 
+    console.timeEnd(needle)
+    
+    return list;  
+}  
 
 function showGallery(){
     document.querySelector('.galerie').classList.remove('hidden');
