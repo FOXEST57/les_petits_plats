@@ -215,44 +215,36 @@ function renderIngredients(ingredients){
     })
     return html
 };
-//algo 2 natif
+//algo fonctionnel (high Order Function)
 function search(needle){
     console.time(needle)
 
     needle = needle.toLowerCase();
-
-    const list = [];
-    for (let i = 0; i < recipes.length; i++)
+    
+    let filteredRecipes = recipes.filter(recipe =>
     {
-        const recipe = recipes[i]
-        let isGood = false;
         if(recipe.name.toLowerCase().indexOf(needle) > -1)
         {
-            isGood = true;
+            return true;
         }
 
         if(recipe.description.toLowerCase().indexOf(needle) > -1)
         {
-            isGood = true;
+            return true;
         }
+        //on transform un tableau d'objet en tableau de string
+        const ingredients = recipe.ingredients.map(ingObj => ingObj.ingredient)
 
-        for (let j = 0; j < recipe.ingredients; j++)
+        return ingredients.some(ing =>
         {
-            const ing = recipe.ingredients[j].ingredient;
-            if (ing.toLowerCase().indexOf(needle) > -1)
-            {
-                isGood = true;
-            }
-        }
-        if (isGood)
-        {
-            list.push(recipe)
-        }
-    } 
+            return ing.toLowerCase().indexOf(needle) > -1
+        })      
+    })
+
     console.timeEnd(needle)
-    
-    return list;  
-}  
+
+    return filteredRecipes;
+};
 
 function showGallery(){
     document.querySelector('.galerie').classList.remove('hidden');
