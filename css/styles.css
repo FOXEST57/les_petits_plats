@@ -10,8 +10,11 @@ body{
     justify-content: center;
 }
 
-.logo {
-    text-align: center;
+.logo  {
+    text-align: center;   
+}
+.imglogo {
+    width:40%;
 }
 
 .list .item.frozen {
@@ -267,7 +270,6 @@ body{
     margin-top: 0px;
     height: 150px;
     font-size: 12px;
-    line-clamp: 3;
     text-overflow: ellipsis;
     overflow: hidden;   
 }
