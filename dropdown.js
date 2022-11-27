@@ -125,7 +125,7 @@ function dropdown (title)
         document.querySelector(`${wrapper} .no-result`).classList.remove('hidden');
     }
 
-    //affiche les
+    //affiche les datas
     function show(items)
     {
         items.forEach(item =>
